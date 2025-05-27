@@ -4,20 +4,459 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Velas Ambar Pilar - Velas Artesanales</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Variables de Color */
+        :root {
+            --rosa-pastel: #FFB6C1;
+            --celeste-pastel: #ADD8E6;
+            --rosa-pastel-oscuro: #ff99aa;
+            --celeste-pastel-oscuro: #9ac7d9;
+            --texto-principal: #2C3E50;
+            --texto-secundario: #555;
+            --texto-claro: #7F8C8D;
+            --fondo-claro: #FEFEFE;
+            --blanco: #fff;
+            --sombra-suave: 0 8px 32px rgba(0, 0, 0, 0.12);
+            --sombra-hover: 0 16px 48px rgba(0, 0, 0, 0.18);
+            --border-radius: 16px;
+        }
+
+        /* Reset y estilos base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.7;
+            color: var(--texto-principal);
+            background: var(--fondo-claro);
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header mejorado */
+        header {
+            background: linear-gradient(135deg, var(--rosa-pastel) 0%, var(--rosa-pastel-oscuro) 100%);
+            color: var(--blanco);
+            padding: 2rem 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .logo-container {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 1rem;
+            border-radius: 50%;
+            background: var(--blanco);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--sombra-suave);
+            transition: transform 0.3s ease;
+        }
+
+        .logo-container:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-container img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        header h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        /* Navegación moderna */
+        nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        nav ul li a {
+            color: var(--texto-principal);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav ul li a:hover {
+            background: linear-gradient(135deg, var(--rosa-pastel), var(--rosa-pastel-oscuro));
+            color: var(--blanco);
+            transform: translateY(-2px);
+        }
+
+        /* Hero section */
+        .hero {
+            background: linear-gradient(135deg, var(--celeste-pastel) 0%, var(--rosa-pastel) 100%);
+            padding: 6rem 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4rem;
+            color: var(--blanco);
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: var(--blanco);
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .btn-cta {
+            display: inline-block;
+            background: var(--blanco);
+            color: var(--celeste-pastel-oscuro);
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            box-shadow: var(--sombra-suave);
+            transition: all 0.3s ease;
+        }
+
+        .btn-cta:hover {
+            background: var(--celeste-pastel-oscuro);
+            color: var(--blanco);
+            transform: translateY(-3px);
+            box-shadow: var(--sombra-hover);
+        }
+
+        /* Sección de productos */
+        #productos {
+            padding: 6rem 0;
+            background: var(--fondo-claro);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            color: var(--rosa-pastel-oscuro);
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--texto-claro);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .productos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .producto-card {
+            background: var(--blanco);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--sombra-suave);
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .producto-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--sombra-hover);
+        }
+
+        .producto-imagen {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .producto-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .producto-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .precio-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: linear-gradient(135deg, var(--celeste-pastel), var(--celeste-pastel-oscuro));
+            color: var(--blanco);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .producto-info {
+            padding: 1.5rem;
+        }
+
+        .producto-card h3 {
+            font-size: 1.5rem;
+            color: var(--texto-principal);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .producto-card .descripcion {
+            color: var(--texto-claro);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .btn-comprar {
+            width: 100%;
+            background: linear-gradient(135deg, var(--rosa-pastel), var(--rosa-pastel-oscuro));
+            color: var(--blanco);
+            border: none;
+            padding: 1rem;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-comprar:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 182, 193, 0.4);
+        }
+
+        /* Secciones sobre nosotros y contacto */
+        .bg-section {
+            padding: 6rem 0;
+            position: relative;
+        }
+
+        .bg-pastel-rosa {
+            background: linear-gradient(135deg, var(--rosa-pastel) 0%, var(--rosa-pastel-oscuro) 100%);
+            color: var(--blanco);
+        }
+
+        .bg-pastel-celeste {
+            background: linear-gradient(135deg, var(--celeste-pastel) 0%, var(--celeste-pastel-oscuro) 100%);
+            color: var(--blanco);
+        }
+
+        .section-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .section-content h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .section-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .contact-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--blanco);
+            text-decoration: none;
+            padding: 1rem 1.5rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .contact-link:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--texto-principal);
+            color: var(--blanco);
+            text-align: center;
+            padding: 2rem 0;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(135deg, var(--rosa-pastel), var(--celeste-pastel));
+        }
+
+        /* Carrito flotante */
+        .cart-float {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--rosa-pastel), var(--rosa-pastel-oscuro));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--blanco);
+            font-size: 1.5rem;
+            box-shadow: var(--sombra-suave);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .cart-float:hover {
+            transform: scale(1.1);
+            box-shadow: var(--sombra-hover);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--celeste-pastel-oscuro);
+            color: var(--blanco);
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .productos-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .section-title h2 {
+                font-size: 2.5rem;
+            }
+
+            .section-content h2 {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Scroll suave */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Animaciones suaves */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
 </head>
 <body>
-
     <header>
         <div class="container">
-            <!-- AQUÍ VUELVE A ESTAR LA IMAGEN DEL LOGO -->
-            <img src="images/logo.jpeg" alt="Logo Velas Ambar Pilar" id="logo">
+            <div class="logo-container">
+                <img src="images/logo.jpeg" alt="Logo Velas Ambar Pilar" id="logo">
+            </div>
             <h1>Velas Ambar Pilar</h1>
-            <p>Velas artesanales que iluminan tus momentos</p>
+            <p>Velas artesanales que iluminan tus momentos especiales</p>
         </div>
     </header>
-
 
     <nav>
         <div class="container">
@@ -33,82 +472,239 @@
     <section id="inicio" class="hero">
         <div class="container">
             <h2>Bienvenido a un mundo de aromas y luz</h2>
-            <p>Descubre nuestras velas hechas con amor y los mejores ingredientes.</p>
-            <a href="#productos" class="btn-cta">Ver Productos</a>
+            <p>Descubre nuestras velas hechas con amor, dedicación y los mejores ingredientes naturales</p>
+            <a href="#productos" class="btn-cta">✨ Ver Productos</a>
         </div>
     </section>
 
     <section id="productos">
         <div class="container">
-            <h2>Nuestras Velas</h2>
+            <div class="section-title">
+                <h2>Nuestras Creaciones</h2>
+                <p class="section-subtitle">Cada vela es única, creada con cera de soja natural y aceites esenciales seleccionados</p>
+            </div>
+            
             <div class="productos-grid">
-                <!-- Producto 1 -->
                 <div class="producto-card">
-                    <img src="images/vela1.jpeg" alt="Vela Navideña">
-                    <h3>Vela Navideña</h3>
-                    <p class="descripcion">Perfecta para crear un ambiente de calma y serenidad.</p>
-                    <p class="precio">$5.000 </p>
-                    <button class="btn-comprar">Añadir al carrito</button>
+                    <div class="producto-imagen">
+                        <img src="images/vela1.jpeg" alt="Vela Navideña">
+                        <div class="precio-badge">$5.000</div>
+                    </div>
+                    <div class="producto-info">
+                        <h3>Vela Navideña</h3>
+                        <p class="descripcion">Perfecta para crear un ambiente de calma y serenidad durante las fiestas. Con aromas que evocan la magia navideña.</p>
+                        <button class="btn-comprar" onclick="addToCart('Vela Navideña', 5000)">
+                            🛒 Añadir al carrito
+                        </button>
+                    </div>
                 </div>
 
-                <!-- Producto 2 -->
                 <div class="producto-card">
-                    <img src="images/vela2.jpeg" alt="Oso Aromatico">
-                    <h3>Oso Aromatico</h3>
-                    <p class="descripcion">Un toque de frescura para revitalizar tu día.</p>
-                    <p class="precio">$4.000 </p>
-                    <button class="btn-comprar">Añadir al carrito</button>
+                    <div class="producto-imagen">
+                        <img src="images/vela2.jpeg" alt="Oso Aromático">
+                        <div class="precio-badge">$4.000</div>
+                    </div>
+                    <div class="producto-info">
+                        <h3>Oso Aromático</h3>
+                        <p class="descripcion">Un toque de frescura para revitalizar tu día. Diseño adorable que combina funcionalidad y belleza.</p>
+                        <button class="btn-comprar" onclick="addToCart('Oso Aromático', 4000)">
+                            🛒 Añadir al carrito
+                        </button>
+                    </div>
                 </div>
 
-                <!-- Producto 3 -->
                 <div class="producto-card">
-                    <img src="images/vela3.jpeg" alt="Vela Caniche.">
-                    <h3>Vela Caniche</h3>
-                    <p class="descripcion">Gran presentacion.</p>
-                    <p class="precio">$20.000 </p>
-                    <button class="btn-comprar">Añadir al carrito</button>
+                    <div class="producto-imagen">
+                        <img src="images/vela3.jpeg" alt="Vela Caniche">
+                        <div class="precio-badge">$20.000</div>
+                    </div>
+                    <div class="producto-info">
+                        <h3>Vela Caniche</h3>
+                        <p class="descripcion">Gran presentación con detalles exquisitos. Una pieza de arte funcional que embellece cualquier espacio.</p>
+                        <button class="btn-comprar" onclick="addToCart('Vela Caniche', 20000)">
+                            🛒 Añadir al carrito
+                        </button>
+                    </div>
                 </div>
 
-                <!-- Producto 4 (Ejemplo sin descripción) -->
                 <div class="producto-card">
-                    <img src="images/vela4.jpeg" alt="Vela de Oso Cariñoso">
-                    <h3>Vela Encantadora</h3>
-                    <p class="precio">$5.000 </p>
-                    <button class="btn-comprar">Añadir al carrito</button>
+                    <div class="producto-imagen">
+                        <img src="images/vela4.jpeg" alt="Vela Encantadora">
+                        <div class="precio-badge">$5.000</div>
+                    </div>
+                    <div class="producto-info">
+                        <h3>Vela Encantadora</h3>
+                        <p class="descripcion">Diseño único con aromas cautivadores que transforman tu hogar en un oasis de tranquilidad.</p>
+                        <button class="btn-comprar" onclick="addToCart('Vela Encantadora', 5000)">
+                            🛒 Añadir al carrito
+                        </button>
+                    </div>
                 </div>
-
-                <!-- Agrega más productos aquí siguiendo la misma estructura -->
             </div>
         </div>
     </section>
 
-    <section id="nosotros" class="bg-pastel-rosa">
+    <section id="nosotros" class="bg-section bg-pastel-rosa">
         <div class="container">
-            <h2>Sobre Nosotros</h2>
-            <p>En Velas Ambar Pilar, creemos en el poder de los pequeños detalles. Cada vela es elaborada a mano con cera de soja natural, aceites esenciales puros y mucha dedicación. Queremos llevar calidez, aroma y bienestar a tu hogar.</p>
+            <div class="section-content">
+                <h2>Sobre Nosotros</h2>
+                <p>En Velas Ambar Pilar, creemos en el poder de los pequeños detalles que hacen grande la vida. Cada vela es elaborada a mano con cera de soja natural, aceites esenciales puros y mucho amor.</p>
+                <p>Nuestra misión es llevar calidez, aroma y bienestar a tu hogar, creando momentos mágicos que perduran en el tiempo. Cada creación cuenta una historia única, diseñada para acompañar tus momentos más especiales.</p>
+            </div>
         </div>
     </section>
 
-    <section id="contacto" class="bg-pastel-celeste">
+    <section id="contacto" class="bg-section bg-pastel-celeste">
         <div class="container">
-            <h2>Contacto</h2>
-            <p>¿Tienes alguna pregunta o quieres hacer un pedido especial? ¡Contáctanos!</p>
-            <p>Email: <a href="mailto:lorena.b.diaz@hotmail.com">lorena.b.diaz@hotmail.com</a></p>
-            <p>Instagram: <a href="https://www.instagram.com/velas_ambar_pilar" target="_blank">@velas_ambar_pilar</a></p>
-            <!-- Para WhatsApp, usa el formato internacional sin +, 00, ni espacios.
-                 Asumo que el número 11 2721-8591 es de Argentina (prefijo +54, y para móviles se suele añadir un 9 después del prefijo de país y antes del código de área).
-                 Quedaría 5491127218591. AJUSTA ESTO SI ES DIFERENTE.
-            -->
-            <p>Whatsapp: <a href="https://wa.me/5491127218591" target="_blank">11 2721-8591</a></p>
-            <!-- Podrías agregar un formulario de contacto simple aquí más adelante -->
+            <div class="section-content">
+                <h2>Conecta con Nosotros</h2>
+                <p>¿Tienes alguna pregunta o quieres realizar un pedido especial? ¡Nos encantaría conocerte!</p>
+                <p>Estamos aquí para ayudarte a encontrar la vela perfecta para cada ocasión.</p>
+                
+                <div class="contact-links">
+                    <a href="mailto:lorena.b.diaz@hotmail.com" class="contact-link">
+                        📧 Email
+                    </a>
+                    <a href="https://www.instagram.com/velas_ambar_pilar" target="_blank" class="contact-link">
+                        📱 Instagram
+                    </a>
+                    <a href="https://wa.me/5491127218591" target="_blank" class="contact-link">
+                        💬 WhatsApp
+                    </a>
+                </div>
+            </div>
         </div>
     </section>
 
     <footer>
         <div class="container">
-            <p>© 2024 Velas Ambar Pilar. Todos los derechos reservados.</p>
+            <p>© 2024 Velas Ambar Pilar. Todos los derechos reservados. Hecho con ❤️ para iluminar tu mundo.</p>
         </div>
     </footer>
 
+    <!-- Carrito flotante -->
+    <div class="cart-float" onclick="showCart()">
+        🛒
+        <div class="cart-count" id="cartCount">0</div>
+    </div>
+
+    <script>
+        // Variables globales
+        let cart = [];
+        let cartCount = 0;
+
+        // Función para añadir al carrito
+        function addToCart(name, price) {
+            cart.push({ name, price });
+            cartCount++;
+            
+            document.getElementById('cartCount').textContent = cartCount;
+            
+            // Animación del botón
+            const button = event.target;
+            const originalText = button.innerHTML;
+            
+            button.innerHTML = '✅ ¡Añadido!';
+            button.style.background = '#27AE60';
+            
+            setTimeout(() => {
+                button.innerHTML = originalText;
+                button.style.background = '';
+            }, 2000);
+
+            // Mostrar notificación
+            showNotification(`${name} añadido al carrito`);
+        }
+
+        // Función para mostrar carrito
+        function showCart() {
+            if (cart.length === 0) {
+                alert('Tu carrito está vacío. ¡Añade algunas velas hermosas!');
+                return;
+            }
+
+            let cartContent = 'Tu carrito:\n\n';
+            let total = 0;
+            
+            cart.forEach((item, index) => {
+                cartContent += `${index + 1}. ${item.name} - $${item.price.toLocaleString()}\n`;
+                total += item.price;
+            });
+            
+            cartContent += `\nTotal: $${total.toLocaleString()}`;
+            cartContent += '\n\n¿Te gustaría proceder con la compra? Contáctanos por WhatsApp.';
+            
+            if (confirm(cartContent)) {
+                const message = encodeURIComponent(`Hola! Me interesan estas velas:\n\n${cart.map((item, i) => `${i+1}. ${item.name} - $${item.price.toLocaleString()}`).join('\n')}\n\nTotal: $${total.toLocaleString()}`);
+                window.open(`https://wa.me/5491127218591?text=${message}`, '_blank');
+            }
+        }
+
+        // Función para mostrar notificaciones
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.innerHTML = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: linear-gradient(135deg, #FFB6C1, #FF91A4);
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 10px;
+                box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+                z-index: 10000;
+                font-weight: 500;
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Animar entrada
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            // Animar salida
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Navegación suave
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Animaciones de scroll
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.fade-in');
+            
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+    </script>
 </body>
 </html>
