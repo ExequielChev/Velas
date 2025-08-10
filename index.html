@@ -86,6 +86,22 @@
     .muted{color:var(--texto-claro)}
 
     @media (max-width:768px){header h1{font-size:2.5rem}.hero h2{font-size:2.5rem}.productos-grid{grid-template-columns:1fr}}
+      /* ===== Responsivo móvil ===== */
+    .mobile-filters-toggle{display:none}
+    @media (max-width:1024px){
+      .productos-grid{grid-template-columns:repeat(auto-fit,minmax(240px,1fr));}
+    }
+    @media (max-width:640px){
+      .mobile-filters-toggle{display:inline-flex;align-items:center;gap:.5rem;border:1px solid #e5e7eb;background:#fff;border-radius:12px;padding:10px 14px;font-weight:600;box-shadow:var(--sombra-suave);}
+      .toolbar{grid-template-columns:1fr!important;margin-top:12px}
+      .toolbar.collapsed{display:none}
+      .toolbar .actions{flex-wrap:wrap}
+      .toolbar .actions .btn-primary,.toolbar .actions .btn-outline{width:100%}
+      .productos-grid{grid-template-columns:1fr}
+      .drawer{width:100%}
+      .qty button{width:36px;height:36px}
+      .btn-comprar{padding:14px}
+    }
   </style>
 </head>
 <body>
@@ -123,7 +139,10 @@
         <p class="section-subtitle">Cada vela es única, creada con cera de soja natural y aceites esenciales seleccionados</p>
       </div>
 
-      <div class="toolbar" role="region" aria-label="Filtros de productos">
+      <!-- Toggle de filtros en móvil -->
+      <button id="toggleFilters" class="mobile-filters-toggle" aria-expanded="false" aria-controls="filtersRegion">🔎 Filtros</button>
+
+      <div id="filtersRegion" class="toolbar" role="region" aria-label="Filtros de productos">
         <div class="field"><label for="q">Buscar</label><input id="q" type="search" placeholder="Nombre, aroma..." /></div>
         <div class="field"><label for="sort">Ordenar</label>
           <select id="sort">
@@ -222,7 +241,27 @@
 
     $$('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{ e.preventDefault(); const t=document.querySelector(a.getAttribute('href')); if(t) t.scrollIntoView({behavior:'smooth',block:'start'});}));
 
-    window.addEventListener('load',()=>{ $('#year').textContent=new Date().getFullYear(); loadProducts(); updateCartUI(); $('#cartButton').addEventListener('click',openDrawer); $('#closeCart').addEventListener('click',closeDrawer); $('#clearCart').addEventListener('click',()=>{cart=[];updateCartUI();saveCart();}); $('#checkout').addEventListener('click',checkout); document.getElementById('applyFilters').addEventListener('click',applyFilters); document.getElementById('resetFilters').addEventListener('click',resetFilters); document.getElementById('q').addEventListener('keydown',e=>{ if(e.key==='Enter') applyFilters(); }); ['sort','tag','priceMax'].forEach(id=> document.getElementById(id).addEventListener('change',applyFilters)); });
+    window.addEventListener('load',()=>{
+      $('#year').textContent=new Date().getFullYear();
+      loadProducts();
+      updateCartUI();
+      $('#cartButton').addEventListener('click',openDrawer);
+      $('#closeCart').addEventListener('click',closeDrawer);
+      $('#clearCart').addEventListener('click',()=>{cart=[];updateCartUI();saveCart();});
+      $('#checkout').addEventListener('click',checkout);
+      document.getElementById('applyFilters').addEventListener('click',applyFilters);
+      document.getElementById('resetFilters').addEventListener('click',resetFilters);
+      document.getElementById('q').addEventListener('keydown',e=>{ if(e.key==='Enter') applyFilters(); });
+      ['sort','tag','priceMax'].forEach(id=> document.getElementById(id).addEventListener('change',applyFilters));
+
+      // Responsivo: colapsar filtros por defecto en móvil
+      const toolbar = document.getElementById('filtersRegion');
+      const toggleBtn = document.getElementById('toggleFilters');
+      function setInitial(){ if (window.innerWidth <= 640){ toolbar.classList.add('collapsed'); toggleBtn.setAttribute('aria-expanded','false'); } else { toolbar.classList.remove('collapsed'); toggleBtn.setAttribute('aria-expanded','true'); } }
+      setInitial();
+      window.addEventListener('resize', setInitial);
+      toggleBtn.addEventListener('click', ()=>{ const c=toolbar.classList.toggle('collapsed'); toggleBtn.setAttribute('aria-expanded', String(!c)); });
+    }); $('#checkout').addEventListener('click',checkout); document.getElementById('applyFilters').addEventListener('click',applyFilters); document.getElementById('resetFilters').addEventListener('click',resetFilters); document.getElementById('q').addEventListener('keydown',e=>{ if(e.key==='Enter') applyFilters(); }); ['sort','tag','priceMax'].forEach(id=> document.getElementById(id).addEventListener('change',applyFilters));
   </script>
 </body>
 </html>
