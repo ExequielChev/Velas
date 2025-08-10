@@ -1,0 +1,262 @@
+{
+  "products": [
+    {
+      "id": "vela-navidena",
+      "name": "Vela Navideña",
+      "price": 5000,
+      "description": "Aromas que evocan la magia navideña.",
+      "image": "images/vela1.jpeg",
+      "available": true
+    },
+    {
+      "id": "oso-aromatico",
+      "name": "Oso Aromático",
+      "price": 4000,
+      "description": "Diseño adorable para revitalizar tu día.",
+      "image": "images/vela2.jpeg",
+      "available": true
+    },
+    {
+      "id": "vela-caniche",
+      "name": "Vela Caniche",
+      "price": 20000,
+      "description": "Pieza de arte funcional para cualquier espacio.",
+      "image": "images/vela3.jpeg",
+      "available": true
+    },
+    {
+      "id": "vela-encantadora",
+      "name": "Vela Encantadora",
+      "price": 5000,
+      "description": "Aromas cautivadores, oasis de tranquilidad.",
+      "image": "images/vela4.jpeg",
+      "available": true
+    },
+        {
+      "id": "vela-navidena",
+      "name": "Vela Navideña",
+      "price": 5000,
+      "description": "Aromas que evocan la magia navideña.",
+      "image": "images/vela1.jpeg",
+      "available": true
+    },
+    {
+      "id": "oso-aromatico",
+      "name": "Oso Aromático",
+      "price": 4000,
+      "description": "Diseño adorable para revitalizar tu día.",
+      "image": "images/vela2.jpeg",
+      "available": true
+    },
+    {
+      "id": "vela-caniche",
+      "name": "Vela Caniche",
+      "price": 20000,
+      "description": "Pieza de arte funcional para cualquier espacio.",
+      "image": "images/vela3.jpeg",
+      "available": true
+    },
+    {
+      "id": "vela-encantadora",
+      "name": "Vela Encantadora",
+      "price": 5000,
+      "description": "Aromas cautivadores, oasis de tranquilidad.",
+      "image": "images/vela4.jpeg",
+      "available": true
+    },
+        {
+      "id": "vela-navidena",
+      "name": "Vela Navideña",
+      "price": 5000,
+      "description": "Aromas que evocan la magia navideña.",
+      "image": "images/vela1.jpeg",
+      "available": true
+    },
+    {
+      "id": "oso-aromatico",
+      "name": "Oso Aromático",
+      "price": 4000,
+      "description": "Diseño adorable para revitalizar tu día.",
+      "image": "images/vela2.jpeg",
+      "available": true
+    },
+    {
+      "id": "vela-caniche",
+      "name": "Vela Caniche",
+      "price": 20000,
+      "description": "Pieza de arte funcional para cualquier espacio.",
+      "image": "images/vela3.jpeg",
+      "available": true
+    },
+    {
+      "id": "vela-encantadora",
+      "name": "Vela Encantadora",
+      "price": 5000,
+      "description": "Aromas cautivadores, oasis de tranquilidad.",
+      "image": "images/vela4.jpeg",
+      "available": true
+    },
+        {
+      "id": "vela-navidena",
+      "name": "Vela Navideña",
+      "price": 5000,
+      "description": "Aromas que evocan la magia navideña.",
+      "image": "images/vela1.jpeg",
+      "available": true
+    },
+    {
+      "id": "oso-aromatico",
+      "name": "Oso Aromático",
+      "price": 4000,
+      "description": "Diseño adorable para revitalizar tu día.",
+      "image": "images/vela2.jpeg",
+      "available": true
+    },
+    {
+      "id": "vela-caniche",
+      "name": "Vela Caniche",
+      "price": 20000,
+      "description": "Pieza de arte funcional para cualquier espacio.",
+      "image": "images/vela3.jpeg",
+      "available": true
+    },
+    {
+      "id": "vela-encantadora",
+      "name": "Vela Encantadora",
+      "price": 5000,
+      "description": "Aromas cautivadores, oasis de tranquilidad.",
+      "image": "images/vela4.jpeg",
+      "available": true
+    },
+        {
+      "id": "vela-navidena",
+      "name": "Vela Navideña",
+      "price": 5000,
+      "description": "Aromas que evocan la magia navideña.",
+      "image": "images/vela1.jpeg",
+      "available": true
+    },
+    {
+      "id": "oso-aromatico",
+      "name": "Oso Aromático",
+      "price": 4000,
+      "description": "Diseño adorable para revitalizar tu día.",
+      "image": "images/vela2.jpeg",
+      "available": true
+    },
+    {
+      "id": "vela-caniche",
+      "name": "Vela Caniche",
+      "price": 20000,
+      "description": "Pieza de arte funcional para cualquier espacio.",
+      "image": "images/vela3.jpeg",
+      "available": true
+    },
+    {
+      "id": "vela-encantadora",
+      "name": "Vela Encantadora",
+      "price": 5000,
+      "description": "Aromas cautivadores, oasis de tranquilidad.",
+      "image": "images/vela4.jpeg",
+      "available": true
+    },
+        {
+      "id": "vela-navidena",
+      "name": "Vela Navideña",
+      "price": 5000,
+      "description": "Aromas que evocan la magia navideña.",
+      "image": "images/vela1.jpeg",
+      "available": true
+    },
+    {
+      "id": "oso-aromatico",
+      "name": "Oso Aromático",
+      "price": 4000,
+      "description": "Diseño adorable para revitalizar tu día.",
+      "image": "images/vela2.jpeg",
+      "available": true
+    },
+    {
+      "id": "vela-caniche",
+      "name": "Vela Caniche",
+      "price": 20000,
+      "description": "Pieza de arte funcional para cualquier espacio.",
+      "image": "images/vela3.jpeg",
+      "available": true
+    },
+    {
+      "id": "vela-encantadora",
+      "name": "Vela Encantadora",
+      "price": 5000,
+      "description": "Aromas cautivadores, oasis de tranquilidad.",
+      "image": "images/vela4.jpeg",
+      "available": true
+    },
+        {
+      "id": "vela-navidena",
+      "name": "Vela Navideña",
+      "price": 5000,
+      "description": "Aromas que evocan la magia navideña.",
+      "image": "images/vela1.jpeg",
+      "available": true
+    },
+    {
+      "id": "oso-aromatico",
+      "name": "Oso Aromático",
+      "price": 4000,
+      "description": "Diseño adorable para revitalizar tu día.",
+      "image": "images/vela2.jpeg",
+      "available": true
+    },
+    {
+      "id": "vela-caniche",
+      "name": "Vela Caniche",
+      "price": 20000,
+      "description": "Pieza de arte funcional para cualquier espacio.",
+      "image": "images/vela3.jpeg",
+      "available": true
+    },
+    {
+      "id": "vela-encantadora",
+      "name": "Vela Encantadora",
+      "price": 5000,
+      "description": "Aromas cautivadores, oasis de tranquilidad.",
+      "image": "images/vela4.jpeg",
+      "available": true
+    },
+    
+        {
+      "id": "vela-navidena",
+      "name": "Vela Navideña",
+      "price": 5000,
+      "description": "Aromas que evocan la magia navideña.",
+      "image": "images/vela1.jpeg",
+      "available": true
+    },
+    {
+      "id": "oso-aromatico",
+      "name": "Oso Aromático",
+      "price": 4000,
+      "description": "Diseño adorable para revitalizar tu día.",
+      "image": "images/vela2.jpeg",
+      "available": true
+    },
+    {
+      "id": "vela-caniche",
+      "name": "Vela Caniche",
+      "price": 20000,
+      "description": "Pieza de arte funcional para cualquier espacio.",
+      "image": "images/vela3.jpeg",
+      "available": true
+    },
+    {
+      "id": "vela-encantadora",
+      "name": "Vela Encantadora",
+      "price": 5000,
+      "description": "Aromas cautivadores, oasis de tranquilidad.",
+      "image": "images/vela4.jpeg",
+      "available": true
+    }
+    
+  ]
+}

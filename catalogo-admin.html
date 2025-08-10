@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Generar products.json desde Excel/CSV</title>
+  <meta name="description" content="Herramienta estática para convertir un Excel/CSV en products.json compatible con el sitio." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{ --bg:#f7f7fb; --card:#ffffff; --ink:#2c3e50; --muted:#6b7b8c; --brand:#7c3aed; --ok:#10b981; --warn:#f59e0b; --err:#ef4444; --shadow:0 12px 30px rgba(0,0,0,.08); --radius:16px; }
+    *{box-sizing:border-box}
+    body{font-family:Poppins, system-ui, -apple-system, Segoe UI, Roboto, Arial; background:var(--bg); color:var(--ink); margin:0;}
+    .wrap{max-width:1100px; margin:32px auto; padding:0 16px}
+    .card{background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow); padding:24px;}
+    h1{margin:0 0 12px; font-size:28px}
+    .muted{color:var(--muted)}
+    .grid{display:grid; gap:20px; grid-template-columns:1fr 1fr}
+    @media (max-width:900px){ .grid{grid-template-columns:1fr} }
+    .drop{border:2px dashed #cbd5e1; border-radius:14px; padding:28px; text-align:center; background:#fafbff}
+    .drop.drag{background:#f0f7ff; border-color:#60a5fa}
+    .btn{display:inline-flex; align-items:center; gap:.5rem; border:none; border-radius:12px; padding:12px 18px; font-weight:600; cursor:pointer; box-shadow:var(--shadow); background:var(--brand); color:#fff}
+    .btn:disabled{opacity:.6; cursor:not-allowed}
+    .btn.secondary{background:#0ea5e9}
+    .btn.link{background:transparent; box-shadow:none; color:var(--brand); padding:0}
+    input[type="file"]{display:none}
+    table{width:100%; border-collapse:collapse; font-size:14px}
+    th,td{padding:10px; border-bottom:1px solid #eef2f7; text-align:left}
+    th{background:#fafafa}
+    .pill{display:inline-block; padding:4px 10px; border-radius:999px; background:#eef2ff; color:#4338ca; font-size:12px}
+    .ok{color:var(--ok)} .warn{color:var(--warn)} .err{color:var(--err)}
+    .row{display:flex; gap:16px; flex-wrap:wrap}
+    .field{flex:1; min-width:200px}
+    label{display:block; font-size:13px; color:var(--muted); margin-bottom:6px}
+    input[type="text"], select{width:100%; padding:10px 12px; border:1px solid #e5e7eb; border-radius:12px; background:#fff}
+    details{background:#fbfbfe; padding:12px 16px; border-radius:12px}
+    summary{cursor:pointer; font-weight:600}
+    .footer{margin-top:20px; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap}
+    .note{font-size:13px; color:var(--muted)}
+    .code{font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size:12px; background:#0b1020; color:#e2e8f0; padding:12px 16px; border-radius:10px; overflow:auto}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>Generar <span class="pill">products.json</span> desde Excel o CSV</h1>
+      <p class="muted">Sube o arrastra tu archivo. Esta herramienta funciona 100% en el navegador (apto GitHub Pages). No sube nada a servidores.</p>
+
+      <div class="grid" style="margin-top:18px">
+        <div>
+          <div id="drop" class="drop">
+            <p>📄 Arrastra aquí tu <strong>Excel (.xlsx/.xls)</strong> o <strong>CSV</strong></p>
+            <p class="muted">O bien</p>
+            <label class="btn"><input id="file" type="file" accept=".xlsx,.xls,.csv" />Elegir archivo</label>
+          </div>
+
+          <div style="margin-top:16px">
+            <details>
+              <summary>Formato esperado de columnas</summary>
+              <div class="row" style="margin-top:12px">
+                <div class="field"><label>name (texto)</label><input type="text" value="name" id="col-name"></div>
+                <div class="field"><label>price (número ARS)</label><input type="text" value="price" id="col-price"></div>
+                <div class="field"><label>description (texto)</label><input type="text" value="description" id="col-desc"></div>
+                <div class="field"><label>image (ruta/URL)</label><input type="text" value="image" id="col-img"></div>
+                <div class="field"><label>available (true/false, opcional)</label><input type="text" value="available" id="col-av"></div>
+                <div class="field"><label>tags (separadas por coma, opcional)</label><input type="text" value="tags" id="col-tags"></div>
+              </div>
+              <p class="note">Puedes renombrar los encabezados para mapear tus columnas. Si <em>available</em> no está, se asume <strong>true</strong>. Si <em>tags</em> no está, se deja vacío.</p>
+            </details>
+          </div>
+        </div>
+        <div>
+          <div class="row">
+            <div class="field">
+              <label>Prefijo para generar <code>id</code> (opcional)</label>
+              <input id="id-prefix" type="text" placeholder="ej: vela-" />
+            </div>
+            <div class="field">
+              <label>Normalizar <code>id</code> desde nombre</label>
+              <select id="id-mode">
+                <option value="slug">slug (recomendado)</option>
+                <option value="none">no generar (si tu planilla ya trae id)</option>
+              </select>
+            </div>
+          </div>
+          <div class="footer">
+            <button id="btn-download" class="btn secondary" disabled>⬇️ Descargar products.json</button>
+            <span id="status" class="note">Sin archivo aún.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:18px">
+      <h2>Vista previa</h2>
+      <div id="preview">—</div>
+    </div>
+
+    <div class="card" style="margin-top:18px">
+      <h2>Ayuda rápida</h2>
+      <ol>
+        <li>Prepara tu Excel/CSV con los encabezados: <code>name, price, description, image, available, tags</code>.</li>
+        <li>Arrastra el archivo arriba y ajusta el mapeo si tus nombres de columnas difieren.</li>
+        <li>Descarga <code>products.json</code> y súbelo a la raíz del repositorio (junto con tus imágenes dentro de <code>images/</code>).</li>
+      </ol>
+      <p class="note">Ejemplo de salida mínima:</p>
+      <pre class="code">{
+  "products": [
+    {
+      "id": "vela-navidena",
+      "name": "Vela Navideña",
+      "price": 5000,
+      "description": "Aroma a canela y pino",
+      "image": "images/vela1.jpeg",
+      "available": true,
+      "tags": ["navidad","nuevo"]
+    }
+  ]
+}</pre>
+    </div>
+  </div>
+
+  <!-- Librerías solo para el navegador, sin compilación -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.20.0/dist/xlsx.full.min.js" integrity="sha256-+bEe6qkq3vQN9V3m8i4ZfF2nSAB2I7LG+0o8qFy3mA0=" crossorigin="anonymous"></script>
+
+  <script>
+    const $ = (s, c=document) => c.querySelector(s);
+    const preview = $('#preview');
+    const drop = $('#drop');
+    const fileInput = $('#file');
+    const statusEl = $('#status');
+    const btnDownload = $('#btn-download');
+
+    function slugify(str){
+      return String(str || '')
+        .normalize('NFD').replace(/[\u0300-\u036f]/g, '') // quita acentos
+        .toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+    }
+
+    function toBool(v){
+      if (typeof v === 'boolean') return v;
+      const s = String(v || '').trim().toLowerCase();
+      if (!s) return true; // por defecto true si está vacío
+      return ['1','true','sí','si','y','yes'].includes(s);
+    }
+
+    function parseTags(v){
+      if (Array.isArray(v)) return v.map(x => String(x).trim()).filter(Boolean);
+      return String(v || '').split(',').map(x => x.trim()).filter(Boolean);
+    }
+
+    function renderTable(rows){
+      if (!rows.length){ preview.textContent = 'No se detectaron filas.'; return; }
+      const thead = `<thead><tr>${Object.keys(rows[0]).map(k=>`<th>${k}</th>`).join('')}</tr></thead>`;
+      const tbody = `<tbody>${rows.map(r => `<tr>${Object.values(r).map(v => `<td>${typeof v === 'object' ? JSON.stringify(v) : v}</td>`).join('')}</tr>`).join('')}</tbody>`;
+      preview.innerHTML = `<div style="overflow:auto"><table>${thead}${tbody}</table></div>`;
+    }
+
+    function buildProductsJSON(rows){
+      const colName = $('#col-name').value.trim();
+      const colPrice = $('#col-price').value.trim();
+      const colDesc = $('#col-desc').value.trim();
+      const colImg = $('#col-img').value.trim();
+      const colAv = $('#col-av').value.trim();
+      const colTags = $('#col-tags').value.trim();
+      const idPrefix = $('#id-prefix').value.trim();
+      const idMode = $('#id-mode').value;
+
+      const products = [];
+      for (const row of rows){
+        const name = row[colName];
+        const priceRaw = row[colPrice];
+        const description = row[colDesc];
+        const image = row[colImg];
+        const available = colAv ? toBool(row[colAv]) : true;
+        const tags = colTags ? parseTags(row[colTags]) : [];
+        if (!name || priceRaw == null || image == null){
+          console.warn('Fila omitida por faltar name/price/image', row);
+          continue;
+        }
+        // Sanitizar precio (aceptar 5.000,00 o 5000)
+        const price = Number(String(priceRaw).replace(/[^0-9.,]/g,'').replace(/\.(?=\d{3}(\D|$))/g,'').replace(',','.'));
+        const id = idMode === 'slug' ? `${idPrefix}${slugify(name)}` : (row.id || `${idPrefix}${slugify(name)}`);
+        products.push({ id, name: String(name).trim(), price: Math.round(price || 0), description: String(description || ''), image: String(image).trim(), available, tags });
+      }
+      return { products };
+    }
+
+    function download(filename, text){
+      const blob = new Blob([text], {type:'application/json'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = filename; a.click();
+      setTimeout(()=> URL.revokeObjectURL(url), 500);
+    }
+
+    function handleWorkbook(wb){
+      // Tomamos la primera hoja con datos
+      const sheetName = wb.SheetNames[0];
+      const sheet = wb.Sheets[sheetName];
+      const rows = XLSX.utils.sheet_to_json(sheet, { defval: '' });
+      if (!rows.length){ statusEl.textContent = 'La hoja está vacía.'; btnDownload.disabled = true; return; }
+      renderTable(rows);
+      const out = buildProductsJSON(rows);
+      const jsonStr = JSON.stringify(out, null, 2);
+      btnDownload.disabled = false;
+      btnDownload.onclick = () => download('products.json', jsonStr);
+      statusEl.textContent = `Listo: ${out.products.length} producto(s) listo(s) para exportar.`;
+    }
+
+    function handleFile(file){
+      statusEl.textContent = `Leyendo ${file.name}...`;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const data = e.target.result;
+        let wb;
+        try{
+          if (file.name.toLowerCase().endsWith('.csv')){
+            // Construimos un libro desde CSV
+            const sheet = XLSX.read(data, { type: 'binary' });
+            wb = sheet;
+          } else {
+            wb = XLSX.read(data, { type: 'binary' });
+          }
+          handleWorkbook(wb);
+        } catch(err){
+          console.error(err);
+          statusEl.textContent = 'Error leyendo el archivo. Ver consola.';
+        }
+      };
+      reader.readAsBinaryString(file);
+    }
+
+    // Drag & Drop
+    ['dragenter','dragover'].forEach(evt => drop.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); drop.classList.add('drag'); }));
+    ;['dragleave','drop'].forEach(evt => drop.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); drop.classList.remove('drag'); }));
+    drop.addEventListener('drop', e => {
+      const files = e.dataTransfer.files; if (files && files[0]) handleFile(files[0]);
+    });
+
+    fileInput.addEventListener('change', e => { if (e.target.files && e.target.files[0]) handleFile(e.target.files[0]); });
+  </script>
+</body>
+</html>
